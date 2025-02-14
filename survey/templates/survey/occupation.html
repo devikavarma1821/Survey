@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Occupation Related</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto; /* Ensures scrolling when content exceeds */
+            max-height: 90vh; /* Limits the height to avoid overflowing */
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .radio-group {
+            display: inline-flex;
+            flex-direction: column;
+            margin-top: 8px;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+            margin-left: 30px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Occupation Related</h1>
+        <form method="post" id="occupationForm" onsubmit="return validateOccupationForm()">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="owns_business">Owns a business?</label>
+                <div class="radio-group">
+                    <label for="id_owns_business_0">
+                        <input type="radio" name="owns_business" value="Yes" id="owns_business_yes"> Yes
+                    </label>
+                    <label for="id_owns_business_1">
+                        <input type="radio" name="owns_business" value="No" id="owns_business_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="promotes_awareness">Promotes awareness and environment-friendly work culture?</label>
+                <div class="radio-group">
+                    <label for="id_promotes_awareness_0">
+                        <input type="radio" name="promotes_awareness" value="Yes" id="promotes_awareness_yes"> Yes
+                    </label>
+                    <label for="id_promotes_awareness_1">
+                        <input type="radio" name="promotes_awareness" value="No" id="promotes_awareness_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="attends_seminars">Whether attends seminars / business trips?</label>
+                <div class="radio-group">
+                    <label for="id_attends_seminars_0">
+                        <input type="radio" name="attends_seminars" value="Yes" id="attends_seminars_yes"> Yes
+                    </label>
+                    <label for="id_attends_seminars_1">
+                        <input type="radio" name="attends_seminars" value="No" id="attends_seminars_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="seminars_location">How far?</label>
+                <div class="radio-group">
+                    <label for="id_seminars_location_0">
+                        <input type="radio" name="seminars_location" value="Within city limits" id="seminars_location_city"> Within city limits
+                    </label>
+                    <label for="id_seminars_location_1">
+                        <input type="radio" name="seminars_location" value="Within state" id="seminars_location_state"> Within state
+                    </label>
+                    <label for="id_seminars_location_2">
+                        <input type="radio" name="seminars_location" value="Within country" id="seminars_location_country"> Within country
+                    </label>
+                    <label for="id_seminars_location_3">
+                        <input type="radio" name="seminars_location" value="International" id="seminars_location_international"> International
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="seminars_frequency">How often?</label>
+                <div class="radio-group">
+                    <label for="id_seminars_frequency_0">
+                        <input type="radio" name="seminars_frequency" value="Annually" id="seminars_frequency_annually"> Annually
+                    </label>
+                    <label for="id_seminars_frequency_1">
+                        <input type="radio" name="seminars_frequency" value="Monthly" id="seminars_frequency_monthly"> Monthly
+                    </label>
+                    <label for="id_seminars_frequency_2">
+                        <input type="radio" name="seminars_frequency" value="Weekly" id="seminars_frequency_weekly"> Weekly
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="attends_seminars_2">Whether attends seminars?</label>
+                <div class="radio-group">
+                    <label for="id_attends_seminars_2_0">
+                        <input type="radio" name="attends_seminars_2" value="Yes" id="attends_seminars_2_yes"> Yes
+                    </label>
+                    <label for="id_attends_seminars_2_1">
+                        <input type="radio" name="attends_seminars_2" value="No" id="attends_seminars_2_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div class="footer">Powered by Your Organization</div>
+    </div>
+
+    <script>
+        function validateOccupationForm() {
+            const questions = ['owns_business', 'promotes_awareness', 'attends_seminars', 'seminars_location', 'seminars_frequency', 'attends_seminars_2'];
+            for (let question of questions) {
+                const selectedOption = document.querySelector(input[name="${question}"]:checked);
+                if (!selectedOption) {
+                    alert('Please answer all the questions before submitting.');
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

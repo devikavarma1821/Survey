@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miscellaneous Survey</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select, textarea, input[type="radio"], button {
+            width: 100%;
+            font-size: 16px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-left: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Miscellaneous Survey</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- International Flights -->
+            <div class="form-group">
+                <label for="international_flights">How often do you take international flights per year?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="international_flights" value="none" required> None</label>
+                    <label><input type="radio" name="international_flights" value="1-2"> 1-2 times</label>
+                    <label><input type="radio" name="international_flights" value="3-5"> 3-5 times</label>
+                    <label><input type="radio" name="international_flights" value="5+"> More than 5 times</label>
+                </div>
+            </div>
+
+            <!-- Carbon Offset Programs -->
+            <div class="form-group">
+                <label for="carbon_offset">Do you participate in carbon offset programs or initiatives?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="carbon_offset" value="yes" required> Yes</label>
+                    <label><input type="radio" name="carbon_offset" value="no"> No</label>
+                </div>
+            </div>
+
+            <!-- Additional Comments -->
+            <div class="form-group">
+                <label for="additional_comments">Any additional comments or practices you would like to share regarding your efforts to reduce carbon emissions?</label>
+                <textarea name="additional_comments" id="additional_comments" rows="4" placeholder="Share your thoughts here..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+        <div class="footer">Powered by Your Organization</div>
+    </div>
+</body>
+</html>

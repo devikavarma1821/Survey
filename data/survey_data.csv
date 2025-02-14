@@ -1,0 +1,50 @@
+id,age,gender,location,occupation
+17,45-54,Non-binary,Suburban,Homemaker
+15,Public transportation,True,Daily,Steady and mature,10-20 km,True
+15,True,True,True
+15,No,Yes,Yes,Within city limits,Annually
+15,Low meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,Up To 0.25,Never,Up To 0.25,More than 0.5,,
+18,solar,often,100-300,
+10,Occasionally,Often,Somewhat conscious
+18,18-24,Female,Urban,Student
+16,Public transportation,True,Daily,Steady and mature,5-10 km,True
+16,True,True,True
+16,Yes,Yes,No,Within city limits,Annually
+16,Medium meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,Up To 0.25,0.25 - 0.5,0.25 - 0.5,More than 0.5,,
+19,electricity,occasionally,<100,
+11,Often,Often,Somewhat conscious
+19,18-24,Female,Urban,Student
+17,Motorcycle/scooter,True,Several times a week,Steady and mature,Less than 5 km,True
+17,True,True,True
+17,Yes,Yes,Yes,Within city limits,Annually
+17,Low meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,More than 0.5,,
+20,solar,occasionally,100-300,
+12,Often,Often,Very conscious
+20,18-24,Female,Suburban,Student
+18,Bicycle,True,Occasionally,Rash,5-10 km,True
+18,True,True,True
+18,Yes,Yes,Yes,Within city limits,Annually
+18,Low meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,Up To 0.25,Up To 0.25,More than 0.5,,
+21,solar,often,100-300,
+13,Often,Often,Somewhat conscious
+21,18-24,Male,Urban,Student
+19,Private car,True,Occasionally,Fast but safe,5-10 km,True
+19,True,True,True
+19,Yes,Yes,Yes,Within city limits,Annually
+19,Medium meat,More than 0.5,More than 0.5,0.25 - 0.5,0.25 - 0.5,Up To 0.25,0.25 - 0.5,More than 0.5,,
+22,solar,often,100-300,
+14,Often,Often,Very conscious
+22,35-44,Female,Suburban,Homemaker
+20,Public transportation,True,Occasionally,Rash,5-10 km,True
+20,True,True,True
+20,Yes,Yes,Yes,Within city limits,Annually
+20,Medium meat,0.25 - 0.5,0.25 - 0.5,Up To 0.25,Up To 0.25,Up To 0.25,Up To 0.25,More than 0.5,,
+23,solar,always,100-300,
+15,Often,Often,Very conscious
+23,18-24,Male,Urban,Student
+21,Public transportation,True,Rarely,Rash,10-20 km,True
+21,True,True,True
+21,Yes,Yes,Yes,Within city limits,Annually
+21,Low meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,Never,Up To 0.25,Up To 0.25,More than 0.5,,
+24,wind,often,100-300,
+16,Often,Occasionally,Somewhat conscious

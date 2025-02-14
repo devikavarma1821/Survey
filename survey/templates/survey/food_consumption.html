@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Consumption Survey</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto; /* Ensures scrolling when content exceeds */
+            max-height: 90vh; /* Limits the height to avoid overflowing */
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="radio"], button {
+            width: 100%;
+            font-size: 16px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-left: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Food Consumption Survey</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Diet Type -->
+            <div class="form-group">
+                <label for="diet_type">Type of diet consumed:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="diet_type" value="High meat" required> High meat</label>
+                    <label><input type="radio" name="diet_type" value="Medium meat"> Medium meat</label>
+                    <label><input type="radio" name="diet_type" value="Low meat"> Low meat</label>
+                    <label><input type="radio" name="diet_type" value="Vegetarian"> Vegetarian</label>
+                    <label><input type="radio" name="diet_type" value="Vegan"> Vegan</label>
+                    <label><input type="radio" name="diet_type" value="Pescetarian"> Pescetarian</label>
+                    <label><input type="radio" name="diet_type" value="Other"> Other (please specify)</label>
+                </div>
+            </div>
+
+            <!-- Beef Consumption -->
+            <div class="form-group">
+                <label for="beef_consumption">How much beef do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="beef_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="beef_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="beef_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="beef_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Pork Consumption -->
+            <div class="form-group">
+                <label for="pork_consumption">How much pork do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="pork_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="pork_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="pork_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="pork_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Mutton Consumption -->
+            <div class="form-group">
+                <label for="mutton_consumption">How much mutton do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="mutton_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="mutton_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="mutton_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="mutton_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Milk Consumption -->
+            <div class="form-group">
+                <label for="milk_consumption">How much milk do you consume per week (in litres):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="milk_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="milk_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="milk_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="milk_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Potato Consumption -->
+            <div class="form-group">
+                <label for="potato_consumption">How much potato do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="potato_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="potato_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="potato_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="potato_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Vegetable Consumption -->
+            <div class="form-group">
+                <label for="vegetable_consumption">How much vegetables do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="vegetable_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="vegetable_consumption" value="0.25 - 0.5"> 0.25 - 0.5</label>
+                    <label><input type="radio" name="vegetable_consumption" value="Up To 0.25"> Up To 0.25</label>
+                    <label><input type="radio" name="vegetable_consumption" value="Never"> Never</label>
+                </div>
+            </div>
+
+            <!-- Rice Consumption -->
+            <div class="form-group">
+                <label for="rice_consumption">How much rice do you consume per week (in kgs):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="rice_consumption" value="More than 0.5" required> More than 0.5</label>
+                    <label><input type="radio" name="rice_consumption" value="0.25 - 0.5"> 0.25 - 0.0</label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Next</button>
+        </form>
+        <div class="footer">Powered by Your Organization</div>
+    </div>
+</body>
+</html>

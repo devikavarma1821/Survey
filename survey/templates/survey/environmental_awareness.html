@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Awareness</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto; /* Ensures scrolling when content exceeds */
+            max-height: 90vh; /* Limits the height to avoid overflowing */
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .radio-group {
+            display: inline-flex;
+            flex-direction: column;
+            margin-top: 8px;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+            margin-left: 30px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Environmental Awareness</h1>
+        <form method="post" id="surveyForm" onsubmit="return validateForm()">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="does_gardening">Does Gardening?</label>
+                <div class="radio-group">
+                    <label for="id_does_gardening_0">
+                        <input type="radio" name="does_gardening" value="Yes" id="does_gardening_yes"> Yes
+                    </label>
+                    <label for="id_does_gardening_1">
+                        <input type="radio" name="does_gardening" value="No" id="does_gardening_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="attends_awareness_programs">Attends Awareness Programs?</label>
+                <div class="radio-group">
+                    <label for="id_attends_awareness_programs_0">
+                        <input type="radio" name="attends_awareness_programs" value="Yes" id="attends_awareness_programs_yes"> Yes
+                    </label>
+                    <label for="id_attends_awareness_programs_1">
+                        <input type="radio" name="attends_awareness_programs" value="No" id="attends_awareness_programs_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="aware_of_sustainable_features">Aware of Sustainable Features?</label>
+                <div class="radio-group">
+                    <label for="id_aware_of_sustainable_features_0">
+                        <input type="radio" name="aware_of_sustainable_features" value="Yes" id="aware_of_sustainable_features_yes"> Yes
+                    </label>
+                    <label for="id_aware_of_sustainable_features_1">
+                        <input type="radio" name="aware_of_sustainable_features" value="No" id="aware_of_sustainable_features_no"> No
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div class="footer">Powered by Your Organization</div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const questions = ['does_gardening', 'attends_awareness_programs', 'aware_of_sustainable_features'];
+            for (let question of questions) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                if (!selectedOption) {
+                    alert('Please answer all the questions before submitting.');
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

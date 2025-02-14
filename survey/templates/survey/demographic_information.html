@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demographic Information Form</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto; /* Ensures scrolling when content exceeds */
+            max-height: 90vh; /* Limits the height to avoid overflowing */
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select, textarea, input[type="radio"], button {
+            width: 100%;
+            font-size: 16px;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-left: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        #other-occupation {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Demographic Information</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="age" value="18-24" required> 18-24</label>
+                    <label><input type="radio" name="age" value="25-34"> 25-34</label>
+                    <label><input type="radio" name="age" value="35-44"> 35-44</label>
+                    <label><input type="radio" name="age" value="45-54"> 45-54</label>
+                    <label><input type="radio" name="age" value="55 and above"> 55 and above</label>
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Male" required> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Non-binary"> Non-binary</label>
+                    <label><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="location" value="Urban" required> Urban</label>
+                    <label><input type="radio" name="location" value="Suburban"> Suburban</label>
+                    <label><input type="radio" name="location" value="Rural"> Rural</label>
+                </div>
+            </div>
+
+            <!-- Occupation -->
+            <div class="form-group">
+                <label for="occupation">Occupation:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="occupation" value="Employed" required> Employed</label>
+                    <label><input type="radio" name="occupation" value="Student"> Student</label>
+                    <label><input type="radio" name="occupation" value="Homemaker"> Homemaker</label>
+                    <label><input type="radio" name="occupation" value="Unemployed"> Unemployed</label>
+                    <label><input type="radio" name="occupation" value="Other" onclick="showOtherField()"> Other (please specify)</label>
+                </div>
+                <!-- Text input for Other occupation -->
+                <div id="other-occupation" class="form-group">
+                    <label for="other_specify">Please specify:</label>
+                    <input type="text" name="other_specify" id="other_specify" placeholder="Enter your occupation">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Next</button>
+        </form>
+
+    </div>
+
+    <script>
+        function showOtherField() {
+            document.getElementById('other-occupation').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

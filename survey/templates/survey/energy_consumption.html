@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Survey</title>
+    <style>
+        /* Reset some basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: white;
+            width: 500px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 24px;
+            color: #5f4b8b; /* Purple for title */
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #5f4b8b; /* Purple accent */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5f4b8b; /* Purple button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4b3e72; /* Darker purple on hover */
+        }
+
+        /* Error styling */
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: red;
+            font-size: 14px;
+        }
+
+        .errorlist li {
+            margin-bottom: 5px;
+        }
+
+        .form-group input:invalid {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Energy Consumption Survey</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Primary source of energy for your home -->
+            <div class="form-group">
+                <label for="primary_source">Primary source of energy for your home:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="primary_source" value="electricity" required> Electricity from the grid</label>
+                    <label><input type="radio" name="primary_source" value="solar" required> Solar power</label>
+                    <label><input type="radio" name="primary_source" value="wind" required> Wind power</label>
+                    <label><input type="radio" name="primary_source" value="other" required> Other (please specify)</label>
+                </div>
+            </div>
+
+            <!-- Energy-efficient appliances -->
+            <div class="form-group">
+                <label for="energy_efficient_usage">Do you use energy-efficient appliances and light bulbs?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="energy_efficient_usage" value="always" required> Always</label>
+                    <label><input type="radio" name="energy_efficient_usage" value="often" required> Often</label>
+                    <label><input type="radio" name="energy_efficient_usage" value="occasionally" required> Occasionally</label>
+                    <label><input type="radio" name="energy_efficient_usage" value="rarely" required> Rarely</label>
+                    <label><input type="radio" name="energy_efficient_usage" value="never" required> Never</label>
+                </div>
+            </div>
+
+            <!-- Monthly electricity consumption -->
+            <div class="form-group">
+                <label for="electricity_consumption">Average monthly electricity consumption (in kWh):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="monthly_consumption" value="<100" required> Less than 100 kWh</label>
+                    <label><input type="radio" name="monthly_consumption" value="100-300" required> 100-300 kWh</label>
+                    <label><input type="radio" name="monthly_consumption" value="300-500" required> 300-500 kWh</label>
+                    <label><input type="radio" name="monthly_consumption" value=">500" required> More than 500 kWh</label>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+
+            <!-- Error messages -->
+            {% if form.errors %}
+                <ul class="errorlist">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

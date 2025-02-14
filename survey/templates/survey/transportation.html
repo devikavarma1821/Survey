@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation Survey</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light purple background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto; /* Enable vertical scrolling if the content exceeds the container */
+            max-height: 90vh; /* Limit the height to 90% of viewport height */
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6a1b9a; /* Purple accent */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            background-color: #6a1b9a; /* Purple button */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #4a148c; /* Darker purple on hover */
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Transportation Survey</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Primary Mode of Transportation -->
+            <div class="form-group">
+                <label for="primary_mode">Primary Mode of Transportation:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="primary_mode" value="Private car" required> Private car</label>
+                    <label><input type="radio" name="primary_mode" value="Public transportation"> Public transportation</label>
+                    <label><input type="radio" name="primary_mode" value="Bicycle"> Bicycle</label>
+                    <label><input type="radio" name="primary_mode" value="Walking"> Walking</label>
+                    <label><input type="radio" name="primary_mode" value="Motorcycle/scooter"> Motorcycle/scooter</label>
+                    <label><input type="radio" name="primary_mode" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <!-- Electric or Hybrid Vehicle Ownership -->
+            <div class="form-group">
+                <label for="electric_vehicle">Do you own an electric or hybrid vehicle?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="owns_electric_vehicle" value="Yes" required> Yes</label>
+                    <label><input type="radio" name="owns_electric_vehicle" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Frequency of Using Private Transportation -->
+            <div class="form-group">
+                <label for="private_transportation_frequency">Frequency of Using Private Transportation:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="frequency_private_transport" value="Daily" required> Daily</label>
+                    <label><input type="radio" name="frequency_private_transport" value="Several times a week"> Several times a week</label>
+                    <label><input type="radio" name="frequency_private_transport" value="Occasionally"> Occasionally</label>
+                    <label><input type="radio" name="frequency_private_transport" value="Rarely"> Rarely</label>
+                </div>
+            </div>
+
+            <!-- Driving Pattern -->
+            <div class="form-group">
+                <label for="driving_pattern">Driving Pattern:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="driving_pattern" value="Steady and mature" required> Steady and mature</label>
+                    <label><input type="radio" name="driving_pattern" value="Fast but safe"> Fast but safe</label>
+                    <label><input type="radio" name="driving_pattern" value="Rash"> Rash</label>
+                    <label><input type="radio" name="driving_pattern" value="No idea"> No idea</label>
+                </div>
+            </div>
+
+            <!-- Average Distance Traveled per Day -->
+            <div class="form-group">
+                <label for="average_distance">Average Distance Traveled per Day:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="avg_distance_per_day" value="Less than 5 km" required> Less than 5 km</label>
+                    <label><input type="radio" name="avg_distance_per_day" value="5-10 km"> 5-10 km</label>
+                    <label><input type="radio" name="avg_distance_per_day" value="10-20 km"> 10-20 km</label>
+                    <label><input type="radio" name="avg_distance_per_day" value="More than 20 km"> More than 20 km</label>
+                </div>
+            </div>
+
+            <!-- Carpooling -->
+            <div class="form-group">
+                <label for="carpool">Do you carpool or share rides?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="carpool" value="Yes" required> Yes</label>
+                    <label><input type="radio" name="carpool" value="No"> No</label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
