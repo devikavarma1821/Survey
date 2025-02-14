@@ -50,9 +50,6 @@ python manage.py migrate
 5.Start the Server
 python manage.py runserver
 
-6.Access the Application
-Open your browser and go to:
-http://127.0.0.1:8000/survey/
 
 📊 Data Flow
 1.Users fill out forms for different categories.
