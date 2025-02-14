@@ -26,7 +26,8 @@ SECRET_KEY = "django-insecure-4+7nzik@afc%sahqelz*6(4wnvy@f%qx7ax#4=8#5rm6p736xh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["survey-rpz3.onrender.com", "127.0.0.1"]
+
 
 
 # Application definition
