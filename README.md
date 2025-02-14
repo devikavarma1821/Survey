@@ -33,8 +33,8 @@ A Django-based web application to collect and store survey data across various c
 Follow these steps to set up and run the project on your local machine:
 
 1.Clone the Repository
-git clone https://github.com/your-username/survey-data-collection.git
-cd survey-data-collection
+git clone https://github.com/your-username/Survey.git
+cd Survey
 
 2. Set Up Virtual Environment
 python -m venv env
