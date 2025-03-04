@@ -1,0 +1,18 @@
+User Identifier,Form Name,Timestamp,ID,age,gender,location,occupation
+Anonymous,Demographic Information,2025-02-20 18:00:06.738002+00:00,2,18-24,Female,Suburban,Homemaker
+Anonymous,Transportation Information,2025-02-20 18:00:17.005427+00:00,1,Bicycle,True,Several times a week,Fast but safe,5-10 km,True
+Anonymous,Environmental Awareness Information,2025-02-20 18:00:22.983582+00:00,1,True,True,True
+Anonymous,Occupation Information,2025-02-20 18:00:36.306828+00:00,1,No,Yes,No,Within city limits,Annually
+Anonymous,Food Consumption Information,2025-02-20 18:00:49.264970+00:00,1,Medium meat,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,,
+Anonymous,Energy Consumption Information,2025-02-20 18:00:55.233738+00:00,1,electricity,often,100-300,
+Anonymous,Consumer Choices Information,2025-02-20 18:01:04.492002+00:00,1,Always,Often,Very conscious
+Login,devikavarmabm@gmail.com,2025-02-21 17:50:39.170805+00:00
+Login,devikavarmabm@gmail.com,2025-02-21 17:53:26.736363+00:00
+Anonymous,Demographic Information,2025-02-21 17:53:58.167631+00:00,3,45-54,Female,Suburban,Homemaker
+Anonymous,Transportation Information,2025-02-21 17:54:09.611644+00:00,2,Private car,True,Occasionally,Fast but safe,5-10 km,True
+Anonymous,Environmental Awareness Information,2025-02-21 17:54:15.811462+00:00,2,True,True,True
+Anonymous,Occupation Information,2025-02-21 17:54:27.087688+00:00,2,No,No,No,Within city limits,Annually
+Anonymous,Food Consumption Information,2025-02-21 17:54:40.651713+00:00,2,Vegetarian,0.25 - 0.5,Up To 0.25,0.25 - 0.5,Up To 0.25,0.25 - 0.5,0.25 - 0.5,0.25 - 0.5,,
+Anonymous,Energy Consumption Information,2025-02-21 17:54:48.919135+00:00,2,solar,often,<100,
+Anonymous,Consumer Choices Information,2025-02-21 17:54:57.480988+00:00,2,Often,Often,Very conscious
+Login,anjana@gmail.com,2025-03-04 17:37:22.192347+00:00

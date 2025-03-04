@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Sustainability Insights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #8A2BE2; /* Purple background */
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .left-panel {
+            width: 40%;
+            background-color: #F4F4F4; /* Light gray background */
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            color: #333;
+        }
+
+        .left-panel h2 {
+            font-size: 28px;
+            font-weight: 500;
+            color: #2F2F2F;
+            margin-bottom: 15px;
+        }
+
+        .left-panel p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .right-panel {
+            width: 60%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid #E0E0E0;
+            background: linear-gradient(45deg, #8A2BE2, #6A1B9A, #4B0082, #800080);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            border-radius: 10px;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .right-panel h1 {
+            font-size: 30px;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #F9F9F9;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #fff;
+            outline: none;
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #8A2BE2;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #6A1B9A;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #ddd;
+            margin-top: 20px;
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #ffcccc;
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        /* Login link styling */
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h2>Sustainability Insights</h2>
+            <p>Join us in building a greener future. Sign up to stay informed about eco-friendly solutions, sustainability tips, and more.</p>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <h1>Welcome to Sustainability Insights</h1>
+
+            <!-- Display error if username already exists -->
+            {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="{% url 'login' %}" style="color: #fff; text-decoration: underline;">Login</a>
+            </p>
+
+
+        </div>
+    </div>
+
+</body>
+</html>

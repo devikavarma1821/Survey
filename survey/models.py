@@ -1,5 +1,50 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.exceptions import ValidationError
 
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email is required")
+        email = self.normalize_email(email)
+
+        # Check if the user already exists
+        if CustomUser.objects.filter(email=email).exists():
+            raise ValidationError("A user with this email already exists.")
+
+
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)  # Hash password
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)  # Required for admin access
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'  # Use email instead of username
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
+
+
+class RegistrationForm(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class DemographicInformation(models.Model):
@@ -206,50 +251,6 @@ class EnergyConsumption(models.Model):
         return f"Energy Source: {self.primary_source}, Efficiency: {self.energy_efficient_usage}"
 
 
-'''class WasteManagement(models.Model):
-    RECYCLING_CHOICES = [
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-    ]
-    ORGANIC_WASTE_CHOICES = [
-        ('Composting', 'Composting'),
-        ('Municipal waste collection', 'Municipal waste collection'),
-        ('Other', 'Other (please specify)'),
-    ]
-
-    # Add choices and defaults for 'recycles'
-    recycles = models.CharField(max_length=50, choices=RECYCLING_CHOICES, null=False, blank=False,
-                                default='No')  # Default is 'No'
-    organic_waste = models.CharField(max_length=50, choices=ORGANIC_WASTE_CHOICES, null=False, blank=False,
-                                     default='Composting')  # Default is 'Composting'
-    other_waste_method = models.CharField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return f"Recycling: {self.recycles}, Organic Waste: {self.organic_waste}, Other Waste Method: {self.other_waste_method or 'None'}" '''
-from django.core.exceptions import ValidationError
-from django.db import models
-
-class WasteManagement(models.Model):
-    RECYCLING_CHOICES = [
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-    ]
-    ORGANIC_WASTE_CHOICES = [
-        ('Composting', 'Composting'),
-        ('Municipal waste collection', 'Municipal waste collection'),
-        ('Other', 'Other (please specify)'),
-    ]
-
-    recycles = models.CharField(max_length=50, choices=RECYCLING_CHOICES, null=False, blank=False, default='No')
-    organic_waste = models.CharField(max_length=50, choices=ORGANIC_WASTE_CHOICES, null=False, blank=False, default='Composting')
-    other_waste_method = models.CharField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return f"Recycling: {self.recycles}, Organic Waste: {self.organic_waste}, Other Waste Method: {self.other_waste_method or 'None'}"
-
-    def clean(self):
-        if self.organic_waste == 'Other' and not self.other_waste_method:
-            raise ValidationError('Please specify the waste management method for "Other" organic waste.')
 
 
 class ConsumerChoices(models.Model):

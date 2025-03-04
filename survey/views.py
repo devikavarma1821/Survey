@@ -1,15 +1,110 @@
 from django.shortcuts import render, redirect
-from .forms import  DemographicInformationForm, TransportationForm, EnvironmentalAwarenessForm, OccupationForm, FoodConsumptionForm,EnergyConsumptionForm, WasteManagementForm ,ConsumerChoicesForm , MiscellaneousForm
+from django.contrib.auth import get_user_model  # Use this instead of User
+from django.http import HttpResponse  # Fixed import
+from django.conf import settings
+from django.utils import timezone
+from django.contrib.auth import login
 
-from .utils import save_to_csv
+import os
+import csv
+from .forms import (
+    DemographicInformationForm, TransportationForm, EnvironmentalAwarenessForm,
+    OccupationForm, FoodConsumptionForm, EnergyConsumptionForm,
+    ConsumerChoicesForm, MiscellaneousForm
+)
+from .utils import save_to_csv  # Ensure this function exists
+CustomUser = get_user_model()  # Use CustomUser dynamically
+from .forms import RegistrationForm  # Ensure this is at the top
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 
 
 
+CustomUser = get_user_model()  # Ensure this fetches the correct user model
 
 # Home View
 def survey_home(request):
     return render(request, 'survey/survey_home.html')
+
+
+def register(request):
+    print("DEBUG: RegistrationForm import issue")  # Debugging print
+
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)  # Use the form for validation
+
+        if form.is_valid():
+            try:
+                # Creating a new user using Django's create_user method
+                user = CustomUser.objects.create_user(
+                    email=form.cleaned_data["email"],
+                    password=form.cleaned_data["password"]
+                )
+
+                # Automatically log in the user
+                login(request, user)
+
+                # -----------------------------
+                # SAVE REGISTRATION DATA TO CSV in survey_data
+                # -----------------------------
+                survey_data_path = os.path.join(settings.BASE_DIR, "survey_data")
+                os.makedirs(survey_data_path, exist_ok=True)
+
+                file_path = os.path.join(survey_data_path, "registration_data.csv")
+                file_exists = os.path.isfile(file_path)
+
+                with open(file_path, mode="a", newline="", encoding="utf-8") as file:
+                    writer = csv.writer(file)
+                    if not file_exists:
+                        writer.writerow(["Email", "Registration Time"])
+                    writer.writerow([user.email, timezone.now()])
+
+                return redirect('login')
+
+            except Exception as e:
+                print(f"DEBUG: Error during registration - {e}")
+                return render(request, 'survey/register.html',
+                              {'form': form, 'error': 'An error occurred. Please try again.'})
+
+        # If the form is invalid, return errors
+        return render(request, 'survey/register.html', {'form': form})
+
+    else:
+        form = RegistrationForm()
+    return render(request, 'survey/register.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+
+                # Save login data to CSV
+                survey_data_path = os.path.join(settings.BASE_DIR, "survey_data")
+                os.makedirs(survey_data_path, exist_ok=True)
+                file_path = os.path.join(survey_data_path, "all_survey_responses.csv")
+                with open(file_path, mode="a+", newline="", encoding="utf-8") as file:
+                    file.seek(0, os.SEEK_END)
+                    is_empty = file.tell() == 0
+                    writer = csv.writer(file)
+                    if is_empty:
+                        writer.writerow(["Event Type", "Email", "Timestamp"])
+                    writer.writerow(["Login", user.email, timezone.now()])
+
+                return redirect('demographic_information')
+            else:
+                return render(request, 'survey/login.html', {'error': 'Your account is disabled. Please contact support.'})
+        else:
+            return render(request, 'survey/login.html', {'error': 'Invalid credentials. Please try again.'})
+
+    return render(request, 'survey/login.html')
+
 
 # Demographic Information View
 # Import the save_to_excel function from utils
@@ -138,7 +233,7 @@ def energy_consumption_view(request):
         form = EnergyConsumptionForm()
 
     return render(request, 'survey/energy_consumption.html', {'form': form})
-#waste_management
+
 
 
 

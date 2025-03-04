@@ -1,42 +1,50 @@
 import csv
 import os
+from django.conf import settings
+from django.utils import timezone
 
 def save_to_csv(sheet_name, data_instance):
     """
-    Saves data from a Django model instance to a CSV file.
-
-    Parameters:
-    - sheet_name: The name of the sheet to save the data to (optional, could be used as a file name).
-    - data_instance: The Django model instance containing the data to save.
+    Saves form data from a Django model instance to a single CSV file.
     """
+
     try:
         print(f"Saving data to CSV: {sheet_name}")  # Debugging line
 
-        # Define the path to your CSV file
-        file_path = os.path.join('data', 'survey_data.csv')
+        # Define file path
+        file_path = os.path.join(settings.BASE_DIR, 'survey_data', 'all_survey_responses.csv')
 
-        # Create the 'data' directory if it doesn't exist
+        # Ensure the directory exists
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-        # Prepare the data row
-        row = []
+        # Determine user identifier
+        user_identifier = getattr(data_instance, 'email', "Anonymous")
+
+        # Prepare data dictionary
+        data_dict = {
+            "User Identifier": user_identifier,
+            "Form Name": sheet_name,
+            "Timestamp": timezone.now(),
+        }
+
+        # Loop through model fields (excluding password)
         for field in data_instance._meta.fields:
-            value = getattr(data_instance, field.name)
-            row.append(value)
+            if field.name != "password":
+                data_dict[field.verbose_name] = getattr(data_instance, field.name, "")
 
         # Open the CSV file in append mode
+        file_exists = os.path.isfile(file_path)
         with open(file_path, mode='a', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
+            writer = csv.DictWriter(file, fieldnames=data_dict.keys())
 
-            # Write the header if the file is empty
-            if file.tell() == 0:  # Check if the file is empty
-                headers = [field.name for field in data_instance._meta.fields]
-                writer.writerow(headers)
+            # Write headers if file is new
+            if not file_exists:
+                writer.writeheader()
 
-            # Write the data row
-            writer.writerow(row)
+            # Write data row
+            writer.writerow(data_dict)
 
-        print(f"Data saved to {file_path}")  # Debugging line
+        print(f"Data successfully saved to {file_path}")
 
     except Exception as e:
         print(f"Error saving data to CSV: {e}")

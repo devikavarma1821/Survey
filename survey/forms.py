@@ -1,5 +1,42 @@
 from django import forms
-from .models import DemographicInformation, Transportation, Occupation ,EnvironmentalAwareness, FoodConsumption,EnergyConsumption,WasteManagement,ConsumerChoices, Miscellaneous
+from .models import  RegistrationForm, DemographicInformation, Transportation, Occupation ,EnvironmentalAwareness, FoodConsumption,EnergyConsumption,ConsumerChoices, Miscellaneous
+from .models import CustomUser
+import re
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
+CustomUser = get_user_model()  # Ensure this fetches the correct user model
+
+class RegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = CustomUser  # Use CustomUser instead of User
+        fields = ["email", "password"]  # No username field
+        widgets = {
+            "password": forms.PasswordInput(),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists.")
+        return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
+
+        # Regex to enforce strong password requirements
+        if not re.match(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', password):
+            raise ValidationError(
+                "Password must contain at least 8 characters, including one uppercase, one lowercase, one number, and one special character (@$!%*?&)."
+            )
+        return password
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
 
 
@@ -54,35 +91,6 @@ class EnergyConsumptionForm(forms.ModelForm):
             'monthly_consumption': forms.Select(choices=EnergyConsumption.MONTHLY_CONSUMPTION_CHOICES),
         }
 
-'''class WasteManagementForm(forms.ModelForm):
-    class Meta:
-        model = WasteManagement
-        fields = ['recycles', 'organic_waste', 'other_waste_method'] '''
-from django import forms
-from .models import WasteManagement
-
-class WasteManagementForm(forms.ModelForm):
-    class Meta:
-        model = WasteManagement
-        fields = ['recycles', 'organic_waste', 'other_waste_method']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        organic_waste = cleaned_data.get('organic_waste')
-        other_waste_method = cleaned_data.get('other_waste_method')
-
-        # Validation for "Other" option in organic_waste
-        if organic_waste == "Other" and not other_waste_method:
-            self.add_error('other_waste_method', 'Please specify the waste management method.')
-
-        return cleaned_data
-
-    def clean_other_waste_method(self):
-        other_waste_method = self.cleaned_data.get('other_waste_method')
-        # Strip leading/trailing spaces from the input
-        if other_waste_method:
-            return other_waste_method.strip()
-        return other_waste_method
 
 
 class ConsumerChoicesForm(forms.ModelForm):

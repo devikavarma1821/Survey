@@ -18,9 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from survey import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('survey/', include('survey.urls')), 
+    path('survey/', include('survey.urls')),
+    path("", views.survey_home, name="survey_home"),
+    path('register/', views.register, name='register'),
     path('', lambda request: redirect('survey/', permanent=True)),
 ]
